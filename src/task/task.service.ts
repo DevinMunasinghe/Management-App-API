@@ -25,7 +25,12 @@ export class TaskService {
     }
 
     async updateStatus(taskId: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
-        const task = await this.taskModel.findByIdAndUpdate(taskId, updateTaskDto, { new: true });
+        const task = await this.taskModel.findOneAndUpdate(
+            { _id: taskId },
+            { $set: updateTaskDto },
+            { new: true, projection: { title: 1, status: 1 } }
+
+        ).lean().exec();
         if (!task) {
             throw new NotFoundException(`Task with Id ${taskId} not found`)
         }
@@ -33,7 +38,7 @@ export class TaskService {
     }
 
     async delete(taskId: string): Promise<void> {
-        const result = await this.taskModel.findByIdAndDelete(taskId)
+        const result = await this.taskModel.deleteOne({ _id: taskId }).exec()
         if (!result) {
             throw new NotFoundException(`Task with Id ${taskId} not found`)
         }
