@@ -17,7 +17,7 @@ export class Task {
     description?: string;
 
     @Prop({ type: String, enum: TaskStatus, default: TaskStatus.PENDING, index: true })
-    Status: TaskStatus;
+    status: TaskStatus;
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task)

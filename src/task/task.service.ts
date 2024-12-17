@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Task } from './schemas/task.schemas';
 import * as mongoose from 'mongoose';
 import { CreateTaskDto } from './dto/create-task-dto';
+import { UpdateTaskDto } from './dto/update-task-dto';
 
 @Injectable()
 export class TaskService {
@@ -21,5 +22,20 @@ export class TaskService {
         const tasks = await this.taskModel.create(createTaskDto)
         return tasks
 
+    }
+
+    async updateStatus(taskId: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
+        const task = await this.taskModel.findByIdAndUpdate(taskId, updateTaskDto, { new: true });
+        if (!task) {
+            throw new NotFoundException(`Task with Id ${taskId} not found`)
+        }
+        return task
+    }
+
+    async delete(taskId: string): Promise<void> {
+        const result = await this.taskModel.findByIdAndDelete(taskId)
+        if (!result) {
+            throw new NotFoundException(`Task with Id ${taskId} not found`)
+        }
     }
 }
