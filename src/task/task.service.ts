@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Task } from './schemas/task.schemas';
 import * as mongoose from 'mongoose';
+import { CreateTaskDto } from './dto/create-task-dto';
 
 @Injectable()
 export class TaskService {
@@ -16,8 +17,8 @@ export class TaskService {
 
     }
 
-    async create(task: Task): Promise<Task> {
-        const tasks = await this.taskModel.create(task)
+    async create(createTaskDto: CreateTaskDto): Promise<Task> {
+        const tasks = await this.taskModel.create(createTaskDto)
         return tasks
 
     }

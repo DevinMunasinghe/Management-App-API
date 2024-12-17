@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { Task } from './schemas/task.schemas';
+import { CreateTaskDto } from './dto/create-task-dto';
 
 @Controller('task')
 export class TaskController {
@@ -12,11 +13,12 @@ export class TaskController {
     }
 
     @Post()
+    @UsePipes(new ValidationPipe())
     async createTask(
         @Body()
-        book
+        createTaskDto: CreateTaskDto
     ): Promise<Task> {
-        return this.taskService.create(book)
+        return this.taskService.create(createTaskDto)
     }
 
 }
