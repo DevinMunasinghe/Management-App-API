@@ -1,5 +1,6 @@
 import { IsEnum } from "class-validator";
-import { TaskStatus } from "../schemas/task.schemas";
+import { TaskStatus } from "enum/task";
+
 
 export class UpdateTaskDto {
     @IsEnum(TaskStatus)

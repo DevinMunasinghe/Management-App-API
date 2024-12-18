@@ -1,9 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { TaskStatus } from "enum/task";
 
-export enum TaskStatus {
-    PENDING = 'pending',
-    COMPLETED = ' completed'
-}
+
 
 @Schema({
     timestamps: true

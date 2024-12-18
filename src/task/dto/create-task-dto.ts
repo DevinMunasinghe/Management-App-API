@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { TaskStatus } from "../schemas/task.schemas";
+import { TaskStatus } from "enum/task";
 
 export class CreateTaskDto {
 

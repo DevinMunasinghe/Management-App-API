@@ -32,7 +32,7 @@ export class TaskController {
         return this.taskService.updateStatus(taskId, updateTaskDto)
     }
 
-    @Delete()
+    @Delete(':id')
     async deleteTask(@Param('id') taskId: string): Promise<void> {
         return this.taskService.delete(taskId)
     }
